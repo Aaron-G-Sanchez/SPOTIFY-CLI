@@ -11,7 +11,9 @@ func main() {
 
 	url := "https://pokeapi.co/api/v2/pokemon?limit=151"
 
-	resp, err := http.Get(url)
+	client := &http.Client{}
+
+	resp, err := client.Get(url)
 	if err != nil {
 		log.Fatalf("Error making request: %v", err)
 	}
