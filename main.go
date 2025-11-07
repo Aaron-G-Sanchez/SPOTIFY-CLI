@@ -7,6 +7,9 @@ import (
 	"net/http"
 )
 
+// TODO: Add Auth with PKCE to get Spotify access token.
+// TODO: Create a player and request current state of the users playback.
+
 func main() {
 
 	url := "https://pokeapi.co/api/v2/pokemon?limit=151"
