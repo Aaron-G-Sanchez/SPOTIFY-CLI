@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
-	"log"
-	"net/http"
 )
 
 // TODO: Add Auth with PKCE to get Spotify access token.
@@ -18,25 +15,7 @@ import (
 // TODO: Create a player and request current state of the users playback.
 
 func main() {
+	// TODO: Check for a valid token.
 
-	url := "https://pokeapi.co/api/v2/pokemon?limit=151"
-
-	client := &http.Client{}
-
-	resp, err := client.Get(url)
-	if err != nil {
-		log.Fatalf("Error making request: %v", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("Unexpected status code: %v", resp.StatusCode)
-	}
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalf("Error reading response body: %v", err)
-	}
-
-	fmt.Println(string(body))
+	fmt.Println("Check token here.")
 }
