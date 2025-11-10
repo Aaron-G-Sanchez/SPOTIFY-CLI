@@ -1,7 +1,10 @@
 package main
 
 import (
-	"github.com/aaron-g-sanchez/PROTOTYPE/SPOTIFY-CLI/config"
+	"fmt"
+	"log"
+
+	"github.com/aaron-g-sanchez/PROTOTYPE/SPOTIFY-CLI/internal/storage"
 )
 
 // TODO: Add Auth with PKCE to get Spotify access token.
@@ -16,5 +19,11 @@ import (
 
 func main() {
 	// TODO: Check for a valid token.
-	config.GetToken()
+	token, err := storage.LoadToken()
+	if err != nil {
+		log.Fatalf("Error getting token: %v", err)
+	}
+	// TODO: Handle logic if the directory/file doesn't exist
+
+	fmt.Println(token)
 }
