@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/aaron-g-sanchez/PROTOTYPE/SPOTIFY-CLI/config"
 )
 
 // TODO: Add Auth with PKCE to get Spotify access token.
@@ -16,6 +16,5 @@ import (
 
 func main() {
 	// TODO: Check for a valid token.
-
-	fmt.Println("Check token here.")
+	config.GetToken()
 }
