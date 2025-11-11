@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: build-and-test
     runs-on: ubuntu-latest
 
     steps:
@@ -17,9 +18,7 @@ jobs:
         uses: actions/setup-go@v6
         with:
           go-version: 'stable'
-
-      - name: Install Dependencies
-        run: go get .
+          cache: false
 
       - name: Build
         run: go build -v ./...

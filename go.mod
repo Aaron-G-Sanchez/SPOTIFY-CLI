@@ -1,3 +1,3 @@
-module github.com/aaron-g-sanchez/PROTOTYPE/SPOTIFY-CLI
+module github.com/aaron-g-sanchez/SPOTIFY-CLI
 
-go 1.25.3
+go 1.25.4
