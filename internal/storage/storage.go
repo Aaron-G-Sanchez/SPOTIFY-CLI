@@ -3,7 +3,6 @@ package storage
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"os"
 	"path"
 )
@@ -13,14 +12,14 @@ type TokenData struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
-func LoadToken() (*TokenData, error) {
-	// TODO: Attempt to read the ~/.spotify-cli/token.json file.
-	path, err := getTokenPath()
-	if err != nil {
-		log.Fatalf("Error retrieving token path:%v", err)
-	}
+type Storage struct {
+	BaseDirectory string
+}
 
-	data, err := os.ReadFile(path)
+func (s *Storage) LoadToken() (*TokenData, error) {
+	tokenPath := createTokenPath(s.BaseDirectory)
+
+	data, err := os.ReadFile(tokenPath)
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return nil, nil
@@ -38,11 +37,6 @@ func LoadToken() (*TokenData, error) {
 }
 
 /* Returns the path to the token file. */
-func getTokenPath() (string, error) {
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return "", err
-	}
-
-	return path.Join(home, ".spotify-cli", "tokens.json"), nil
+func createTokenPath(baseDirectory string) string {
+	return path.Join(baseDirectory, ".spotify-cli", "tokens.json")
 }
