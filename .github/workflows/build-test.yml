@@ -1,0 +1,28 @@
+name: Build and test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: 'stable'
+
+      - name: Install Dependencies
+        run: go get .
+
+      - name: Build
+        run: go build -v ./...
+
+      - name: Test
+        run: go test -v ./...
