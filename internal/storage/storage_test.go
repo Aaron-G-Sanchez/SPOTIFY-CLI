@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/aaron-g-sanchez/PROTOTYPE/SPOTIFY-CLI/internal/storage"
+	"github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/storage"
 )
 
 func TestLoadToken_Errors(t *testing.T) {

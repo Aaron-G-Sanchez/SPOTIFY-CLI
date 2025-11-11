@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/aaron-g-sanchez/PROTOTYPE/SPOTIFY-CLI/internal/storage"
+	"github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/storage"
 )
 
 // TODO: Add Auth with PKCE to get Spotify access token.
