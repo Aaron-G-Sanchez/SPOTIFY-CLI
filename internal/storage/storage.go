@@ -1,10 +1,12 @@
 package storage
 
 import (
-	"encoding/json"
 	"errors"
 	"os"
 	"path"
+
+	tpb "github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/protos"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type TokenData struct {
@@ -16,10 +18,12 @@ type Storage struct {
 	BaseDirectory string
 }
 
-func (s *Storage) LoadToken() (*TokenData, error) {
+func (s *Storage) LoadToken() (*tpb.TokenData, error) {
+
 	tokenPath := createTokenPath(s.BaseDirectory)
 
 	data, err := os.ReadFile(tokenPath)
+
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return nil, nil
@@ -27,9 +31,9 @@ func (s *Storage) LoadToken() (*TokenData, error) {
 		return nil, err
 	}
 
-	var token TokenData
+	token := tpb.TokenData{}
 
-	if err := json.Unmarshal(data, &token); err != nil {
+	if err := protojson.Unmarshal(data, &token); err != nil {
 		return nil, err
 	}
 

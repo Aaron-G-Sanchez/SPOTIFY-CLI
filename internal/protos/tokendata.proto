@@ -1,11 +1,11 @@
-syntax = "proto3"
-package protos
+syntax = "proto3";
+package protos;
 
-options go_package = "github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/protos"
+option go_package = "github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/protos";
 
 message TokenData {
-  string AccessToken = 1;
-  string RefreshToken = 2;
+  string access_token = 1;
+  string refresh_token = 2;
 }
 
 

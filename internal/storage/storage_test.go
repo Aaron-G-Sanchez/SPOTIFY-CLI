@@ -1,13 +1,14 @@
 package storage_test
 
 import (
-	"encoding/json"
 	"os"
 	"path"
-	"reflect"
 	"testing"
 
+	tpb "github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/protos"
 	"github.com/aaron-g-sanchez/SPOTIFY-CLI/internal/storage"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 )
 
 func TestLoadToken_Errors(t *testing.T) {
@@ -41,7 +42,8 @@ func TestLoadToken_Errors(t *testing.T) {
 }
 
 func TestLoadToken_Success(t *testing.T) {
-	expectedTestToken := storage.TokenData{AccessToken: "test-token", RefreshToken: "test-refresh-token"}
+	// TODO: Move this setup to a setup function.
+	expectedTestToken := &tpb.TokenData{AccessToken: "test-token", RefreshToken: "test-refresh-token"}
 
 	tempTestDirectory := t.TempDir()
 
@@ -53,7 +55,7 @@ func TestLoadToken_Success(t *testing.T) {
 
 	tempTokenPath := path.Join(tempTestDirectory, ".spotify-cli", "tokens.json")
 
-	testTokenJSONData, err := json.Marshal(expectedTestToken)
+	testTokenJSONData, err := protojson.Marshal(expectedTestToken)
 	if err != nil {
 		t.Fatalf("Error creating JSON: %v", err)
 	}
@@ -67,12 +69,12 @@ func TestLoadToken_Success(t *testing.T) {
 	testCases := []struct {
 		name    string
 		storage *storage.Storage
-		token   *storage.TokenData
+		token   *tpb.TokenData
 	}{{
 
 		name:    "Should retrieve token.",
 		storage: &testStorage,
-		token:   &expectedTestToken,
+		token:   expectedTestToken,
 	},
 	}
 
@@ -84,8 +86,9 @@ func TestLoadToken_Success(t *testing.T) {
 				t.Fatalf("Unexpected error while loading token: %v", err)
 			}
 
-			if !reflect.DeepEqual(*gotToken, expectedTestToken) {
-				t.Errorf("got token: %v, expected token: %v", *gotToken, expectedTestToken)
+			if !proto.Equal(gotToken, tc.token) {
+				t.Errorf("got token: %v, expected token: %v", gotToken, tc.token)
+
 			}
 
 		})
