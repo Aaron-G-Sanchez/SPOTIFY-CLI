@@ -9,11 +9,6 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-type TokenData struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
-}
-
 type Storage struct {
 	BaseDirectory string
 }
